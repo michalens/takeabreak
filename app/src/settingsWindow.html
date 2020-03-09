@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Settings Window</title>
+    <link rel="stylesheet" href="index.css">
+  </head>
+  <body>
+    <h1>Settings Window</h1>
+    <p>This is Settings window.</p>
+
+    <form action="">
+      Session Length: <input type="text" name="sessionLengthMin" id="sessionLengthMin"/> minutes 
+      <input type="text" name="sessionLengthSec" id="sessionLengthSec"/> seconds
+
+      Break Length: <input type="text" name="breakLengthMin" id="breakLengthMin"/> minutes
+      <input type="text" name="breakLengthSec" id="breakLengthSec"/> seconds
+
+      <input type="button" value="save" onClick="saveSettings(this.form)">
+    </form>
+
+    <script src="./settingsWindowRenderer.js"></script>
+  </body>
+</html>
