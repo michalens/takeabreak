@@ -1,4 +1,4 @@
-const settingsStore = require('./config')
+const {config, setValues} = require('./config')
 
 const saveSettings = (form) => {
     const breakLengthMin = form.breakLengthMin.value
@@ -6,24 +6,24 @@ const saveSettings = (form) => {
     const sessionLengthMin = form.sessionLengthMin.value
     const sessionLengthSec = form.sessionLengthSec.value
 
-    console.log('hit')
-
-    settingsStore.set('breakLength.minutes', breakLengthMin)
-    settingsStore.set('breakLength.seconds', breakLengthSec)
-    settingsStore.set('sessionLength.minutes', sessionLengthMin)
-    settingsStore.set('sessionLength.seconds', sessionLengthSec)
-    
-    console.log(settingsStore.get('breakLength'))
+    setValues(breakLengthMin, breakLengthSec, sessionLengthMin, sessionLengthSec)
 
     setInputValues()
 }
 
 const setInputValues = () => {
-    document.getElementById('breakLengthMin').value = settingsStore.get('breakLength.minutes')
-    document.getElementById('breakLengthSec').value = settingsStore.get('breakLength.seconds')
+    config.find({name: "breakLength"}, (err,data) => {
+        console.log(data)
 
-    document.getElementById('sessionLengthMin').value = settingsStore.get('sessionLength.minutes')
-    document.getElementById('sessionLengthSec').value = settingsStore.get('sessionLength.seconds')
+        document.getElementById('breakLengthMin').value = data[0].minutes
+        document.getElementById('breakLengthSec').value = data[0].seconds
+    })
+
+    config.find({name: "sessionLength"}, (err,data) => {
+
+        document.getElementById('sessionLengthMin').value = data[0].minutes
+        document.getElementById('sessionLengthSec').value = data[0].seconds
+    })
 }
 
 setInputValues()

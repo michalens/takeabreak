@@ -1,9 +1,9 @@
 const { BrowserWindow } = require('electron')
 const path = require('path')
 
-const settingsStore = require('./config')
-const breakLength = settingsStore.get('breakLength')
-const breakMilisec = (breakLength.minutes * 60 + breakLength.seconds) * 1000 
+// const settingsStore = require('./config')
+// const breakLength = settingsStore.get('breakLength')
+// const breakMilisec = (breakLength.minutes * 60 + breakLength.seconds) * 1000
 
 
 const breakWindow = () => {
@@ -19,7 +19,7 @@ const breakWindow = () => {
   
     
   
-    setTimeout(() => mainWindow.close(), breakMilisec)
+    setTimeout(() => mainWindow.close(), 5000)
   };
 
 module.exports = breakWindow
