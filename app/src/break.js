@@ -1,16 +1,23 @@
 const EventEmitter = require('events')
+const breakEmitter = new EventEmitter()
+const { app } = require('electron')
 
 const {config} = require('./config')
-//
-// const breakLength = settingsStore.get('breakLength')
-// const breakMilisec = (breakLength.minutes * 60 + breakLength.seconds) * 1000
-//
-// const sessionLength = settingsStore.get('sessionLength')
-// const sessionMilisec = (sessionLength.minutes * 60 + sessionLength.seconds) * 1000
 
+let timeout
 
-const breakEmitter = new EventEmitter()
+function setSessionLength() {
+    if (timeout) {
+        clearTimeout(timeout)
+    }
+    config.find({name: "sessionLength"}, (err, data) => {
+        let sessionLength = (parseInt(data[0].minutes) * 60 + parseInt(data[0].seconds)) * 1000
 
-setInterval(() => {breakEmitter.emit('breakEmitter')}, 350000)
+        timeout = setTimeout(() => {breakEmitter.emit('breakEmitter')}, sessionLength)
+    })
+}
 
-module.exports = breakEmitter
+module.exports = {
+    breakEmitter,
+    setSessionLength
+}

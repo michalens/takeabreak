@@ -1,6 +1,9 @@
 const {config, setValues} = require('./config')
 
-const saveSettings = (form) => {
+const { setSessionLength } = require('./break')
+
+function saveSettings (form) {
+    console.log("hite")
     const breakLengthMin = form.breakLengthMin.value
     const breakLengthSec = form.breakLengthSec.value
     const sessionLengthMin = form.sessionLengthMin.value
@@ -8,12 +11,12 @@ const saveSettings = (form) => {
 
     setValues(breakLengthMin, breakLengthSec, sessionLengthMin, sessionLengthSec)
 
+    setSessionLength()
     setInputValues()
 }
 
 const setInputValues = () => {
     config.find({name: "breakLength"}, (err,data) => {
-        console.log(data)
 
         document.getElementById('breakLengthMin').value = data[0].minutes
         document.getElementById('breakLengthSec').value = data[0].seconds

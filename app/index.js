@@ -1,6 +1,6 @@
 const { app, Menu, Tray } = require('electron')
 const path = require('path')
-const breakEmitter = require('./src/break')
+const {breakEmitter, setSessionLength} = require('./src/break')
 const breakWindow = require('./src/breakWindow')
 const settingsWindow = require('./src/settingsWindow')
 
@@ -27,6 +27,8 @@ app.on('ready', () => {
   ])
   tray.setToolTip('This is my application.')
   tray.setContextMenu(contextMenu)
+
+  setSessionLength()
 })
 
 app.on('window-all-closed', () => {
