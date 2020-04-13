@@ -27,6 +27,8 @@ app.on('ready', () => {
   ])
   tray.setToolTip('This is my application.')
   tray.setContextMenu(contextMenu)
+  tray.setTitle("test")
+  setTimeout(()=> tray.setTitle("tset"), 5000)
 
   setSessionLength()
 })

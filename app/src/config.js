@@ -1,6 +1,8 @@
-const Datastore = require("nedb")
+const { ipcMain } = require('electron')
 
+const Datastore = require("nedb")
 const config = new Datastore("config.db")
+
 config.loadDatabase()
 
 const setDefaults = () => {
@@ -24,6 +26,12 @@ const setValues = (breakMin, breakSec, sessionMin, sessionSec) => {
     })
     config.update({name: "sessionLength"}, { $set: {minutes: sessionMin, seconds: sessionSec} }, {} )
 }
+
+ipcMain.on('send-config-values', (event, arg) => {
+    console.log(arg) // prints "ping"
+
+})
+
 
 module.exports = {
     config,

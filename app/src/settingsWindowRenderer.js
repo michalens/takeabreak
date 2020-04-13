@@ -1,3 +1,5 @@
+const { ipcRenderer } = require('electron')
+
 const {config, setValues} = require('./config')
 
 const { setSessionLength } = require('./break')
@@ -9,7 +11,8 @@ function saveSettings (form) {
     const sessionLengthMin = form.sessionLengthMin.value
     const sessionLengthSec = form.sessionLengthSec.value
 
-    setValues(breakLengthMin, breakLengthSec, sessionLengthMin, sessionLengthSec)
+    ipcRenderer.send('send-config-values', breakLengthMin, breakLengthSec, sessionLengthMin, sessionLengthSec)
+    //setValues()
 
     setSessionLength()
     setInputValues()
